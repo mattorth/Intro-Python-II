@@ -56,7 +56,7 @@ new_player.print_inventory()
 
 user = True
 while not user == "q":
-    print(new_player)
+    print(f"\n{new_player}")
 
     user = input(f"""What action would you like to take?\n  
     [n] move north\n  
