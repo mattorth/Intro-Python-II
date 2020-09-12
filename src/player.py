@@ -11,8 +11,9 @@ class Player:
         return f"Current Room: {self._current_room}"
 
     def print_inventory(self):
+        print(f"Inventory\n")
         for x in self.items:
-            print(f"Inventory: {x.name}")
+            print(f"{x.name}: {x.description}")
 
     def _set_current_room(self, current_room):
         self._current_room = current_room

@@ -70,33 +70,53 @@ while not user == "q":
 
     action = user.split()
     if len(action) == 1:
-        if action == "n":
+        if action[0] == "n":
             if new_player.current_room.n_to is not None:
                 new_player.current_room = new_player.current_room.n_to
             else:
                 print(f"Movement not allowed, {new_player.name}!")
-        elif action == "s":
+        elif action[0] == "s":
             if new_player.current_room.s_to is not None:
                 new_player.current_room = new_player.current_room.s_to
             else:
                 print(f"Movement not allowed, {new_player.name}!")
-        elif action == "e":
+        elif action[0] == "e":
             if new_player.current_room.e_to is not None:
                 new_player.current_room = new_player.current_room.e_to
             else:
                 print(f"Movement not allowed, {new_player.name}!")
-        elif action == "w":
+        elif action[0] == "w":
             if new_player.current_room.w_to is not None:
                 new_player.current_room = new_player.current_room.w_to
             else:
                 print(f"Movement not allowed, {new_player.name}!")
-        elif action == "i":
-            pass
+        elif action[0] == "i":
+            new_player.print_inventory()
     elif len(action) == 2:
-        if action[1] == "get" or "take":
-            new_player.items.append(new_player.current_room.items[action[2]])
-        elif action[1] == "drop":
-            new_player.items.remove(new_player.items[action[2]])
+        if action[0] == ("get" or "take"):
+            if any(item.name == action[1] for item in new_player.current_room.items):
+                for i in new_player.current_room.items:
+                    if i.name == action[1]:
+                        i.on_take()
+                        new_player.items.append(i)
+                        new_player.current_room.items.remove(i)
+            else:
+                print(f"There is no {action[1]} here, {new_player.name}")
+            # new_player.items.append(new_player.current_room.items[action[1]])
+        elif action[0] == "drop":
+            print("drop")
+            if any(item.name == action[1] for item in new_player.items):
+                for i in new_player.items:
+                    if i.name == action[1]:
+                        i.on_drop()
+                        new_player.items.remove(i)
+                        new_player.current_room.items.append(i)
+            else:
+                print(f"{action[1]} isn't in your inventory, {new_player.name}.")
+            # if action[1] in new_player.items.name: new_player.items.remove()
+                # if new_player.items[i].name == action[2]
+                #     return remove(new_player.items[]
+                #     remove(new_player.items[action[2]])
 
 # def convert(lst): 
 # return (lst[0].split()) 
